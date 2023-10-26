@@ -31,8 +31,15 @@ public class UsuarioController {
 	@Autowired
 	private  UsuarioService usuarioService;
 	@GetMapping("")
-    public List<UsuarioResponseDto> findAll(){
-        return this.usuarioService.findAll();
+    public ResponseEntity<?> findAll(){
+		try {
+			System.out.print("hola controler 1");
+			return ResponseEntity.status(HttpStatus.OK).body(usuarioService.findAll());
+			
+		}catch (Exception e){
+			System.out.print("hola controler 2");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error");
+        }
     }
 
 	

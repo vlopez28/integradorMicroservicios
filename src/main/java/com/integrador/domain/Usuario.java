@@ -1,5 +1,6 @@
 package com.integrador.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.integrador.service.dto.usuario.UsuarioRequestDto;
@@ -17,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class Usuario {
+public class Usuario implements Serializable{
 	@Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,6 +42,7 @@ public class Usuario {
     	this.apellido = request.getApellido();
     	this.celular = request.getCelular();
     	this.email = request.getEmail();
+    	this.cuentas = request.getCuentas();
     }
     
     public void insertarCuenta(Cuenta c) {
@@ -100,6 +102,12 @@ public class Usuario {
 	public void setCuentas(List<Cuenta> cuentas) {
 		this.cuentas = cuentas;
 	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", cuentas=" + cuentas + "]";
+	}
+
     
     
 }

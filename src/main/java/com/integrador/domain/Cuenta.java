@@ -1,5 +1,6 @@
 package com.integrador.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class Cuenta {
+public class Cuenta implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -87,5 +88,15 @@ public class Cuenta {
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Cuenta [id=" + id + ", saldo=" + saldo + ", fechaAlta=" + fechaAlta + "]";
+	}
+
+
+	
     
+	
 }

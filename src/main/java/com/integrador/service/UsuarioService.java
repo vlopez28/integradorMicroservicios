@@ -1,5 +1,6 @@
 package com.integrador.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -38,7 +39,17 @@ public class UsuarioService {
 
     @Transactional
     public List<UsuarioResponseDto> findAll(){
-        return this.usuarioRepository.findAll().stream().map( UsuarioResponseDto::new ).toList();
+    	List<Usuario> usuarios = this.usuarioRepository.findAll();
+    	System.out.println(usuarios);
+    	List<UsuarioResponseDto> response = new ArrayList<UsuarioResponseDto>();
+    	
+    	for(int i =0; i < usuarios.size(); i++) {
+    		UsuarioResponseDto usuResponse = new UsuarioResponseDto(usuarios.get(i));
+    		response.add(usuResponse);
+    		
+    	}
+    	System.out.println(response);
+        return response;
     }
 
     @Transactional
