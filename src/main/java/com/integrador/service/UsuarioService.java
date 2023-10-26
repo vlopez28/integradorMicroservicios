@@ -104,16 +104,6 @@ public class UsuarioService {
 		
 		return new UsuarioCuentaResponseDto(request.getIdUsuario(), request.getIdCuenta());
     }
-//	    @Transactional( readOnly = true )
-//	    public EstudianteResponseDto findByLibreta( Integer LU ){
-//	        return this.estudianteRepository.findByLibreta( LU ).map( e -> new EstudianteResponseDto(e) )
-//	        		.orElseThrow();
-//	    }
-//	   
-//	    @Transactional
-//	    public List<EstudianteResponseDto> estudiantePorGenero(String genero ){
-//	        return this.estudianteRepository.findByGenero(genero )
-//	                .stream().map( EstudianteResponseDto::new ).toList();
-//	    }
+
 	
 }
