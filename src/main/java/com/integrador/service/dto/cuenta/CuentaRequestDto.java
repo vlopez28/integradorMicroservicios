@@ -14,10 +14,15 @@ public class CuentaRequestDto {
 	private Long id;
 	private double saldo;
     private Date fechaAlta;
+    private boolean disponible;
     
     
     public Long getId() {
     	return id;
+    }
+    
+    public boolean isDisponible() {
+    	return disponible;
     }
     
 	public double getSaldo() {

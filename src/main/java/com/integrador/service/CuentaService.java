@@ -59,6 +59,7 @@ public class CuentaService {
                () -> new NotFoundException("ID de cuenta inválido: " + id));
        cuenta.setSaldo(request.getSaldo());
        cuenta.setFechaAlta(request.getFechaAlta());
+       cuenta.setDisponible(request.isDisponible());
     
        return this.cuentaRepository.save(cuenta);
    }

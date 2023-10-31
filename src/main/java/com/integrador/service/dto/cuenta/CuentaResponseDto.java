@@ -19,11 +19,13 @@ public class CuentaResponseDto {
 	private final Long id;
     private final double saldo;
     private final Date fechaAlta;
+    private final boolean disponible;
     
     public CuentaResponseDto(Cuenta c ) {
         this.id = c.getId();
         this.saldo = c.getSaldo();
         this.fechaAlta = c.getFechaAlta();
+        this.disponible = c.isDisponible();
 	}
 	
 

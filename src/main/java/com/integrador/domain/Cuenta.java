@@ -28,6 +28,8 @@ public class Cuenta implements Serializable{
     private double saldo;
     @Column
     private Date fechaAlta;
+    @Column 
+    private boolean disponible;
 
 //    @Column
 //    private MP cuentaMP;
@@ -46,10 +48,23 @@ public class Cuenta implements Serializable{
 	public Cuenta(CuentaRequestDto request) {
     	this.saldo = request.getSaldo();
     	this.fechaAlta = request.getFechaAlta();
+    	this.disponible = request.isDisponible();
     }
+	
+	
     
     
-    public void cargarSaldo(double saldo){
+    public boolean isDisponible() {
+		return disponible;
+	}
+
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
+	}
+
+
+	public void cargarSaldo(double saldo){
         this.saldo += saldo;
     }
 
