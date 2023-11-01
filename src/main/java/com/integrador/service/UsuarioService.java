@@ -1,24 +1,42 @@
 package com.integrador.service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
+//import org.springframework.http.HttpEntity;
+//import org.springframework.http.HttpHeaders;
+//import org.springframework.http.HttpMethod;
+//import org.springframework.http.HttpStatus;
+//import org.springframework.http.MediaType;
+//import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
+
 import com.integrador.domain.Cuenta;
 import com.integrador.domain.Usuario;
+import com.integrador.domain.clases.Monopatin;
 import com.integrador.repository.CuentaRepository;
 import com.integrador.repository.UsuarioRepository;
+import com.integrador.service.dto.monopatin.MonopatinesCercaResponseDto;
 import com.integrador.service.dto.usuario.UsuarioRequestDto;
 import com.integrador.service.dto.usuario.UsuarioResponseDto;
 import com.integrador.service.dto.usuarioCuenta.UsuarioCuentaRequestDto;
 import com.integrador.service.dto.usuarioCuenta.UsuarioCuentaResponseDto;
 import com.integrador.service.exception.NotFoundException;
 
+import jakarta.transaction.Transactional;
+
 
 @Service
 public class UsuarioService {
 		
+	@Autowired
+    private  RestTemplate restTemplate;
+	
 	 private  UsuarioRepository usuarioRepository;
 	 private CuentaRepository cuentaRepository;
 	 
@@ -34,9 +52,6 @@ public class UsuarioService {
         return new UsuarioResponseDto(result);
     }
 	    
-	    
-  
-
     @Transactional
     public List<UsuarioResponseDto> findAll(){
     	List<Usuario> usuarios = this.usuarioRepository.findAll();
@@ -104,6 +119,23 @@ public class UsuarioService {
 		
 		return new UsuarioCuentaResponseDto(request.getIdUsuario(), request.getIdCuenta());
     }
+ 
+    
+    @Transactional
+    public List<MonopatinesCercaResponseDto> obtenerMonopatinesCerca(double latitud, double longitud) {
+    	HttpHeaders headers = new HttpHeaders();
+    	HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+    	ResponseEntity<List<MonopatinesCercaResponseDto>> response = restTemplate.exchange(
+    			"http://localhost:8003/api/monopatines/obtenerMonopatinesCerca/" +latitud+"/"+longitud,
+				HttpMethod.GET,
+				requestEntity,
+				new ParameterizedTypeReference<List<MonopatinesCercaResponseDto>>() {}
+				);	
+    	System.out.println(response);
+    	headers.setContentType(MediaType.APPLICATION_JSON);
+    	return response.getBody();
+    }
+    
 
 	
 }

@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@NoArgsConstructor
 public class Cuenta implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

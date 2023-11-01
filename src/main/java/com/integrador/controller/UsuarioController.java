@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.integrador.domain.Usuario;
+import com.integrador.domain.clases.Monopatin;
 import com.integrador.service.UsuarioService;
+import com.integrador.service.dto.monopatin.MonopatinesCercaResponseDto;
 import com.integrador.service.dto.usuario.UsuarioRequestDto;
 import com.integrador.service.dto.usuario.UsuarioResponseDto;
 import com.integrador.service.dto.usuarioCuenta.UsuarioCuentaRequestDto;
@@ -107,31 +109,15 @@ public class UsuarioController {
         }
     }
     
-
-
-
-
-
+    @GetMapping("/obtenerMonopatinCerca/{latitud}/{longitud}")
+    public List<MonopatinesCercaResponseDto> ObtenerMonopatinesCerca(@PathVariable double latitud, @PathVariable double longitud){
+        try{
+            return usuarioService.obtenerMonopatinesCerca(latitud, longitud);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
     
-//como el ejemplo del libro, tira error
-//  @GetMapping("/{id}")
-//  public ResponseEntity<?> findById( @PathVariable Long id ){
-//  	Optional<UsuarioResponseDto> usuario = Optional.ofNullable(this.usuarioService.findById(id));
-//  	if(usuario == null) {
-//  		return new ResponseEntity<> (HttpStatus.NOT_FOUND);
-//  	}
-//      return new ResponseEntity<>(usuario.get(), HttpStatus.OK);
-//  }
-  
-//como lo teniamos antes
-//  @PostMapping("")
-//  public ResponseEntity<UsuarioResponseDto> save( @RequestBody @Validated UsuarioRequestDto request ){
-//      final var result = this.usuarioService.save( request );
-//      return ResponseEntity.accepted().body( result );
-//  }
-
-    
-    
-
 
 }
