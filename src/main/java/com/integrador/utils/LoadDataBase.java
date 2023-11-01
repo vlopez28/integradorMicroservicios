@@ -85,6 +85,8 @@ public class LoadDataBase {
 			Cuenta cuenta5 = new Cuenta(cr5);
 			Cuenta cuenta6 = new Cuenta(cr6);
 			
+			
+			
 			usuario1.insertarCuenta(cuenta1);
 			usuario1.insertarCuenta(cuenta2);
 			usuario2.insertarCuenta(cuenta2);

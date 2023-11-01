@@ -1,6 +1,7 @@
 package com.integrador.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.integrador.service.dto.usuario.UsuarioRequestDto;
@@ -41,7 +42,7 @@ public class Usuario implements Serializable{
     	this.apellido = request.getApellido();
     	this.celular = request.getCelular();
     	this.email = request.getEmail();
-    	this.cuentas = request.getCuentas();
+    	this.cuentas = new ArrayList<>();
     }
     
     public void insertarCuenta(Cuenta c) {
