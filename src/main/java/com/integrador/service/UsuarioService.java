@@ -106,6 +106,7 @@ public class UsuarioService {
 		
 		return new UsuarioCuentaResponseDto(request.getIdUsuario(), request.getIdCuenta());
     }
+    
     @Transactional
     public UsuarioCuentaResponseDto quitarCuenta(UsuarioCuentaRequestDto request){
 		

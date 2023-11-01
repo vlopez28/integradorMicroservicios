@@ -32,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 public class UsuarioController {
 	@Autowired
 	private  UsuarioService usuarioService;
+	
 	@GetMapping("")
     public ResponseEntity<?> findAll(){
 		try {

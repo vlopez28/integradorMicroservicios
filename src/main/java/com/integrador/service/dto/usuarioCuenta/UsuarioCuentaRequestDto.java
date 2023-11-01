@@ -6,7 +6,9 @@ import lombok.Data;
 
 @Data
 @JsonIgnoreProperties( ignoreUnknown = true )
+
 public class UsuarioCuentaRequestDto {
+	
 	private Long idUsuario;
 	private Long idCuenta;
 	
@@ -14,6 +16,7 @@ public class UsuarioCuentaRequestDto {
 		this.idUsuario = idUsuario;
 		this.idCuenta = idCuenta;
 	}
+
 
 	public Long getIdUsuario() {
 		return idUsuario;

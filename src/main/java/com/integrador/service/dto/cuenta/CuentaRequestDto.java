@@ -1,5 +1,6 @@
 package com.integrador.service.dto.cuenta;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -13,11 +14,18 @@ public class CuentaRequestDto {
 
 	private Long id;
 	private double saldo;
-    private Date fechaAlta;
+    private Timestamp fechaAlta;
     private boolean disponible;
     
     
-    public Long getId() {
+    public CuentaRequestDto(double saldo, Timestamp fechaAlta, boolean disponible) {
+    	this.saldo = saldo;
+    	this.fechaAlta = fechaAlta;
+    	this.disponible = disponible;
+		
+	}
+
+	public Long getId() {
     	return id;
     }
     
@@ -28,7 +36,7 @@ public class CuentaRequestDto {
 	public double getSaldo() {
 		return saldo;
 	}
-	public Date getFechaAlta() {
+	public Timestamp getFechaAlta() {
 		return fechaAlta;
 	}
     

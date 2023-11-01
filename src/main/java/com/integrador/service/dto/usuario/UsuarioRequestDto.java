@@ -1,6 +1,7 @@
 package com.integrador.service.dto.usuario;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -20,6 +21,13 @@ public class UsuarioRequestDto implements Serializable{
     private List<Cuenta> cuentas;
     
     
+	public UsuarioRequestDto(String apellido, String nombre, String email, String celular) {
+		this.apellido = apellido;
+		this.nombre = nombre;
+		this.email = email;
+		this.celular = celular;
+	}
+	
 	public List<Cuenta> getCuentas() {
 		return cuentas;
 	}
