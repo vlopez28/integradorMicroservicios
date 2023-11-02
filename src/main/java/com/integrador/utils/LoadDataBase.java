@@ -38,13 +38,13 @@ public class LoadDataBase {
 			
 			UsuarioService us = new UsuarioService (usuarioRepository, cuentaRepository);
 			
-			us.save(ur1);
-			us.save(ur2);
-			us.save(ur3);
-			us.save(ur4);
-			us.save(ur5);
-			us.save(ur6);
-			us.save(ur7);
+//			us.save(ur1);
+//			us.save(ur2);
+//			us.save(ur3);
+//			us.save(ur4);
+//			us.save(ur5);
+//			us.save(ur6);
+//			us.save(ur7);
 			
 			Timestamp fecha1 = Timestamp.valueOf("2023-04-24 10:10:10.0");
 			Timestamp fecha2 = Timestamp.valueOf("2023-05-30 10:10:10.0");
@@ -62,12 +62,12 @@ public class LoadDataBase {
 			
 			CuentaService cs = new CuentaService (cuentaRepository);
 
-			cs.save(cr1);
-			cs.save(cr2);
-			cs.save(cr3);
-			cs.save(cr4);
-			cs.save(cr5);
-			cs.save(cr6);
+//			cs.save(cr1);
+//			cs.save(cr2);
+//			cs.save(cr3);
+//			cs.save(cr4);
+//			cs.save(cr5);
+//			cs.save(cr6);
 			
 			
 			Usuario usuario1 = new Usuario(ur1);
@@ -87,15 +87,15 @@ public class LoadDataBase {
 			
 			
 			
-			usuario1.insertarCuenta(cuenta1);
-			usuario1.insertarCuenta(cuenta2);
-			usuario2.insertarCuenta(cuenta2);
-			usuario3.insertarCuenta(cuenta3);
-			usuario4.insertarCuenta(cuenta5);
-			usuario5.insertarCuenta(cuenta5);
-			usuario6.insertarCuenta(cuenta6);
-			usuario3.insertarCuenta(cuenta4);
-			usuario7.insertarCuenta(cuenta6);
+//			usuario1.insertarCuenta(cuenta1);
+//			usuario1.insertarCuenta(cuenta2);
+//			usuario2.insertarCuenta(cuenta2);
+//			usuario3.insertarCuenta(cuenta3);
+//			usuario4.insertarCuenta(cuenta5);
+//			usuario5.insertarCuenta(cuenta5);
+//			usuario6.insertarCuenta(cuenta6);
+//			usuario3.insertarCuenta(cuenta4);
+//			usuario7.insertarCuenta(cuenta6);
 			
 			
 
