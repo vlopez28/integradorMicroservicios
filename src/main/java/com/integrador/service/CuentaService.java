@@ -23,17 +23,16 @@ public class CuentaService {
 	 public CuentaService( CuentaRepository cuentaRepository ) { 
 		 this.cuentaRepository = cuentaRepository;
 	 }
-	
 	 @Transactional
 	 public CuentaResponseDto save(CuentaRequestDto request ){
        Cuenta cuenta = new Cuenta(request);
        Cuenta result = this.cuentaRepository.save(cuenta);
        return new CuentaResponseDto(result);
 	 }
-	    
-	    
  
-
+	 
+	 
+	 
    @Transactional
    public List<CuentaResponseDto> findAll(){
        return this.cuentaRepository.findAll().stream().map( CuentaResponseDto::new ).toList();
@@ -45,7 +44,7 @@ public class CuentaService {
                .map( CuentaResponseDto::new )
                .orElseThrow( () -> new NotFoundException("Cuenta", id ) );
    }
-   
+ 
    @Transactional
    public void delete(Long id) {
 	   cuentaRepository.delete(this.cuentaRepository.findById(id).orElseThrow(
@@ -64,6 +63,6 @@ public class CuentaService {
        return this.cuentaRepository.save(cuenta);
    }
    
-	
+
 	
 }

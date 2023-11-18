@@ -1,6 +1,8 @@
 package com.integrador.utils;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,23 +30,35 @@ public class LoadDataBase {
 	CommandLineRunner initDatabase(UsuarioRepository usuarioRepository, CuentaRepository cuentaRepository) {
 		return args -> {
 			
-			UsuarioRequestDto ur1 = new UsuarioRequestDto("Gustavo", "Lopez", "2494352789", "gustavolopez@gmail.com");
-			UsuarioRequestDto ur2 = new UsuarioRequestDto("Pedro", "Perez", "2494271078", "pedroperez@gmail.com");
-			UsuarioRequestDto ur3 = new UsuarioRequestDto("Marcelo", "Rodriguez", "2494247492", "marcelorodriguez@gmail.com");
-			UsuarioRequestDto ur4 = new UsuarioRequestDto("Julieta", "Martinez", "2494964521", "julietamartinez@gmail.com");
-			UsuarioRequestDto ur5 = new UsuarioRequestDto("Pamela", "Benitez", "2494957934", "pamelabenitez@gmail.com");
-			UsuarioRequestDto ur6 = new UsuarioRequestDto("Tomás", "Rupero", "2494957934", "tomasrupero@gmail.com");
-			UsuarioRequestDto ur7 = new UsuarioRequestDto("Lucia", "Torino", "2494957934", "luciatorino@gmail.com");
+			
+
+			Set<Long> cuentas = new HashSet<>();
+			cuentas.add(1L);
+			cuentas.add(2L);
+			cuentas.add(3L);
+		    Set<String> authorities = new HashSet<>();
+		    authorities.add("ADMIN");
+		    authorities.add("USER");
+
+		    UsuarioRequestDto ur1 = new UsuarioRequestDto("Lopez","Gustavo", "gustavolopez@gmail.com", "2494352789", "glopez", "1234", cuentas, authorities);
+			UsuarioRequestDto ur2 = new UsuarioRequestDto("Perez", "Pedro", "pedroperez@gmail.com", "2494271078", "pperez", "2345", cuentas, authorities);
+			UsuarioRequestDto ur3 = new UsuarioRequestDto("Rodriguez", "Marcelo", "marcelorodriguez@gmail.com", "2494247492", "mrodriguez", "7654", cuentas, authorities);
+			UsuarioRequestDto ur4 = new UsuarioRequestDto("Martinez", "Julieta", "julietamartinez@gmail.com", "2494964521", "jmartinez", "6579", cuentas, authorities);
+			UsuarioRequestDto ur5 = new UsuarioRequestDto("Benitez","Pamela","pamelabenitez@gmail.com", "2494957934", "pbenitez", "6743", cuentas, authorities );
+			UsuarioRequestDto ur6 = new UsuarioRequestDto("Rupero", "Tomás", "tomasrupero@gmail.com", "2494957934","trupero", "8854" , cuentas, authorities);
+			UsuarioRequestDto ur7 = new UsuarioRequestDto("Torino","Lucia","luciatorino@gmail.com","2494957934", "ltorino", "6432", cuentas, authorities);
 			
 			UsuarioService us = new UsuarioService (usuarioRepository, cuentaRepository);
 			
-//			us.save(ur1);
-//			us.save(ur2);
-//			us.save(ur3);
-//			us.save(ur4);
-//			us.save(ur5);
-//			us.save(ur6);
-//			us.save(ur7);
+			//Authority aut1 = new Authority();
+			
+	//		us.save(ur1);
+	//		us.save(ur2);
+	//		us.save(ur3);
+	//		us.save(ur4);
+	//		us.save(ur5);
+	//		us.save(ur6);
+	//		us.save(ur7);
 			
 			Timestamp fecha1 = Timestamp.valueOf("2023-04-24 10:10:10.0");
 			Timestamp fecha2 = Timestamp.valueOf("2023-05-30 10:10:10.0");
@@ -77,7 +91,7 @@ public class LoadDataBase {
 			Usuario usuario5 = new Usuario(ur5);
 			Usuario usuario6 = new Usuario(ur6);
 			Usuario usuario7 = new Usuario(ur7);
-			
+//			
 			Cuenta cuenta1 = new Cuenta(cr1);
 			Cuenta cuenta2 = new Cuenta(cr2);
 			Cuenta cuenta3 = new Cuenta(cr3);
@@ -96,9 +110,6 @@ public class LoadDataBase {
 //			usuario6.insertarCuenta(cuenta6);
 //			usuario3.insertarCuenta(cuenta4);
 //			usuario7.insertarCuenta(cuenta6);
-			
-			
-
 			
 		};
 	

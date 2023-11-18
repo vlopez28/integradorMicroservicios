@@ -12,16 +12,15 @@ import com.integrador.domain.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-//	
-//	@Query( "SELECT e FROM Estudiante e  ORDER BY e.apellido ASC" )
-//	List<Usuario>  estudiantesPorApellido();
-//
-//
-//	@Query ("SELECT e FROM Estudiante e WHERE e.LU = :LU")
-//	Optional<Estudiante> findByLibreta(int LU);
-//
-//
-//	@Query ("SELECT e FROM Estudiante e WHERE e.genero = :genero")
-//	List<Estudiante> findByGenero(String genero);
+
+    @Query("SELECT u FROM Usuario u WHERE u.username = :username")
+    public Usuario findByUsername(String username);
+
+    @Query("SELECT u FROM Usuario  u WHERE u.email = :email")
+    public Usuario findByEmail(String email);
+
+    Optional<Usuario> findUserByEmailIgnoreCase(String email);
+
+    boolean existsUsersByEmailIgnoreCase(String email );
 
 }

@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-@NoArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class CuentaResponseDto {
 	
@@ -27,6 +26,13 @@ public class CuentaResponseDto {
         this.fechaAlta = c.getFechaAlta();
         this.disponible = c.isDisponible();
 	}
+    
+    
+	@Override
+	public String toString() {
+		return "CuentaResponseDto [id=" + id + ", saldo=" + saldo + ", fechaAlta=" + fechaAlta + ", disponible="
+				+ disponible + "]";
+	}
 	
-
+    
 }

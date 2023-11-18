@@ -3,6 +3,7 @@ package com.integrador.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -19,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import com.integrador.domain.Cuenta;
 import com.integrador.domain.Usuario;
 import com.integrador.domain.clases.Monopatin;
+import com.integrador.repository.AuthorityRepository;
 import com.integrador.repository.CuentaRepository;
 import com.integrador.repository.UsuarioRepository;
 import com.integrador.service.dto.monopatin.MonopatinesCercaResponseDto;
@@ -26,7 +28,9 @@ import com.integrador.service.dto.usuario.UsuarioRequestDto;
 import com.integrador.service.dto.usuario.UsuarioResponseDto;
 import com.integrador.service.dto.usuarioCuenta.UsuarioCuentaRequestDto;
 import com.integrador.service.dto.usuarioCuenta.UsuarioCuentaResponseDto;
+import com.integrador.service.exception.EnumUserException;
 import com.integrador.service.exception.NotFoundException;
+import com.integrador.service.exception.UserException;
 
 import jakarta.transaction.Transactional;
 
@@ -36,6 +40,10 @@ public class UsuarioService {
 		
 	@Autowired
     private  RestTemplate restTemplate;
+	
+	
+	@Autowired
+    private AuthorityRepository authorityRepository;
 	
 	 private  UsuarioRepository usuarioRepository;
 	 private CuentaRepository cuentaRepository;
@@ -90,6 +98,9 @@ public class UsuarioService {
         usuario.setApellido(request.getApellido());
         usuario.setEmail(request.getEmail());
         usuario.setCelular(request.getCelular());
+       
+        usuario.setPassword(request.getPassword());
+        usuario.setUsername(request.getUsername());
         return this.usuarioRepository.save(usuario);
     }
     
@@ -124,6 +135,7 @@ public class UsuarioService {
     
     @Transactional
     public List<MonopatinesCercaResponseDto> obtenerMonopatinesCerca(double latitud, double longitud) {
+    	System.out.println("hola service usuario");
     	HttpHeaders headers = new HttpHeaders();
     	HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
     	ResponseEntity<List<MonopatinesCercaResponseDto>> response = restTemplate.exchange(
@@ -136,7 +148,42 @@ public class UsuarioService {
     	headers.setContentType(MediaType.APPLICATION_JSON);
     	return response.getBody();
     }
+    @Transactional
+    public Usuario findByUsername(String username){
+        return this.usuarioRepository.findByUsername(username);
+    }
+    @Transactional
+    public Usuario findByEmail(String email){
+        return this.usuarioRepository.findByEmail(email);
+    }
     
-
+    @Transactional
+    public UsuarioResponseDto registrar(UsuarioRequestDto entity) throws Exception {
+        if( this.usuarioRepository.existsUsersByEmailIgnoreCase( entity.getEmail() ) )
+            throw new UserException( EnumUserException.already_exist, String.format("Ya existe un usuario con email %s", entity.getEmail() ) );
+        final var accounts = this.cuentaRepository.findAllById( entity.getCuentas() );
+        System.out.println("Cuentas servicio:" + accounts);
+        if( accounts.isEmpty() )
+            throw new UserException(EnumUserException.invalid_account,String.format("No se encontro ninguna cuenta con id %s", entity.getCuentas().toString()));
+        final var authorities = entity.getAuthorities()
+                .stream()
+                .map( string -> this.authorityRepository.findById( string ).orElseThrow( () -> new NotFoundException("revisa algo no funciona") ) )
+                .toList();
+        System.out.println("Authorities servicio:" + authorities);
+        if( authorities.isEmpty() )
+            throw new UserException( EnumUserException.invalid_authorities,
+                    String.format("No se encontro ninguna autoridad con id %s", entity.getAuthorities().toString() ) );
+        //Autocompletame porfa
+        final var user = new Usuario( entity);
+        user.setCuentas( accounts );
+        user.setAuthorities( authorities );
+//        final var encryptedPassword = passwordEncoder.encode( request.getPassword() );
+  //      user.setPassword( encryptedPassword );
+        System.out.println("Usuario servicio:" + user);
+        final var createdUser = this.usuarioRepository.save( user );
+        return new UsuarioResponseDto( user );
+    }
+    
+   
 	
 }

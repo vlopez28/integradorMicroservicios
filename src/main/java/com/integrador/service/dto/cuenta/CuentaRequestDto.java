@@ -17,13 +17,39 @@ public class CuentaRequestDto {
     private Timestamp fechaAlta;
     private boolean disponible;
     
-    
+  
     public CuentaRequestDto(double saldo, Timestamp fechaAlta, boolean disponible) {
     	this.saldo = saldo;
     	this.fechaAlta = fechaAlta;
     	this.disponible = disponible;
 		
 	}
+    
+    
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
+	}
+
+
+
+	public void setFechaAlta(Timestamp fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
+
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
+	}
+
+
 
 	public Long getId() {
     	return id;

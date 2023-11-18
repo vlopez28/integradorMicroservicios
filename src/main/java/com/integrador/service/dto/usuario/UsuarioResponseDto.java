@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
 @NoArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class UsuarioResponseDto implements Serializable{
@@ -23,6 +22,9 @@ public class UsuarioResponseDto implements Serializable{
     private String apellido;
 	private  String celular;
 	private  String email;
+	private String password;
+	private String username;
+
 	@JsonIgnore
 	private  List<Cuenta> cuentas;
 	
@@ -30,19 +32,22 @@ public class UsuarioResponseDto implements Serializable{
 	
     
 	public UsuarioResponseDto(Usuario u ) {
-        this.id = u.getId();
-        this.nombre = u.getNombre();
-        this.apellido = u.getApellido();
-        this.celular = u.getCelular();
-        this.email = u.getEmail();
+		if(u != null) {
+			this.id = u.getId();
+	        this.nombre = u.getNombre();
+	        this.apellido = u.getApellido();
+	        this.celular = u.getCelular();
+	        this.email = u.getEmail();
+	        this.password = u.getPassword();
+	        this.username = u.getUsername();
+	        this.cuentas = u.getCuentas();
+		}
         
         
-        this.cuentas = u.getCuentas();
+        
 	}
 
-	public UsuarioResponseDto() {
-			
-	}
+
 
 	@Override
 	public String toString() {

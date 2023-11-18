@@ -43,7 +43,6 @@ public class Cuenta implements Serializable{
 	
     }
 
-
 	public Cuenta(CuentaRequestDto request) {
     	this.saldo = request.getSaldo();
     	this.fechaAlta = request.getFechaAlta();

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,13 +14,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.integrador.domain.Cuenta;
+import com.integrador.security.jwt.AuthorityConstants;
 import com.integrador.service.CuentaService;
 import com.integrador.service.dto.cuenta.CuentaRequestDto;
 import com.integrador.service.dto.cuenta.CuentaResponseDto;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -29,12 +34,20 @@ public class CuentaController {
 
 	@Autowired
 	private  CuentaService cuentaService;
+	
+	
+	
+	
+	@Operation(summary = "Cuentas find All", description = "Devuelve todas las cuentas.")
 	@GetMapping("")
+	@PreAuthorize( "hasAuthority( \"" + AuthorityConstants.ADMIN + "\" )" + "|| hasAuthority( \"" + AuthorityConstants.USER + "\" )" )
     public List<CuentaResponseDto> findAll(){
         return this.cuentaService.findAll();
     }
-
 	
+	
+	@Operation(summary = "Cuenta by Id", description = "Devuelve una cuenta por su Id.")
+	@PreAuthorize( "hasAuthority( \"" + AuthorityConstants.ADMIN + "\" )" + "|| hasAuthority( \"" + AuthorityConstants.USER + "\" )" )
 	 @GetMapping("/{id}")
 	   public ResponseEntity<?> getById(@PathVariable Long id){
 	        try{
@@ -45,8 +58,9 @@ public class CuentaController {
 	        
 	   }
 
-    //ver si funciona
+	@Operation(summary = "Crear cuenta", description = "Se crea una cuenta.")
     @PostMapping("")
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstants.ADMIN + "\" )" + "|| hasAuthority( \"" + AuthorityConstants.USER + "\" )" )
     public ResponseEntity<?> save( @RequestBody @Validated CuentaRequestDto request ){
         try {
         	return ResponseEntity.status(HttpStatus.OK).body(cuentaService.save(request));
@@ -55,7 +69,10 @@ public class CuentaController {
         }
     }
     
+    
+	@Operation(summary = "Eliminar cuenta", description = "Se elimina una cuenta.")
     @DeleteMapping("/{id}")
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstants.ADMIN + "\" )" + "|| hasAuthority( \"" + AuthorityConstants.USER + "\" )" )
     public ResponseEntity<?> delete(@PathVariable Long id){
         try{
             this.cuentaService.delete(id);
@@ -65,8 +82,10 @@ public class CuentaController {
         }
     }
     
+	@Operation(summary = "Modificar cuenta", description = "Se modifica una cuenta.")
     //chequear
     @PutMapping("/{id}")
+    @PreAuthorize( "hasAuthority( \"" + AuthorityConstants.ADMIN + "\" )" + "|| hasAuthority( \"" + AuthorityConstants.USER + "\" )" )
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody @Validated CuentaRequestDto request) {
         try {
             Cuenta cuenta = cuentaService.update(id, request);
@@ -79,6 +98,5 @@ public class CuentaController {
         }
     }
     
-	
 	
 }
